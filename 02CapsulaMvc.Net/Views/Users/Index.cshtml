@@ -1,0 +1,84 @@
+﻿@model IEnumerable<_02CapsulaMvc.Net.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StateId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr id="item_@item.Id">
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Street)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StateId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <input type="button" value="Delete" onclick="DelUser(@item.Id)"/>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    function DelUser(itemId) {
+        if (confirm("are you sure to delete this user?")) {
+            $.ajax({
+                type: "POST",
+                url: "/Users/Delete/" + itemId,
+                success: function (item) {
+                    if (item != null) {
+                        $("#item_" + itemId).remove();
+                        alert("User Deleted Succesfully");
+                    } else {
+                        alert("User not found");
+                    }
+                }
+            });
+        }
+    }
+</script>
