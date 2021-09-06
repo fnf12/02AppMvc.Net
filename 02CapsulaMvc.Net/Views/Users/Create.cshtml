@@ -61,8 +61,6 @@ function Lstate()
         url: '@Url.Action("States")',
         data: { id: $("#CountryId").val() },
         success: function (states) {
-            //$("#StateId").append('<option value="' + -1 + '">' +
-            //    "Select State" + '</option>');
             $.each(states, function (i, state) {
                 $("#StateId").append('<option value="' + state.value + '">' +
                    state.text + '</option>')

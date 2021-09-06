@@ -22,7 +22,7 @@ namespace _02CapsulaMvc.Net.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            var users =  _context.Users.Include(p => p.Country);
+            var users =  _context.Users.Include(p => p.Country).Include(s => s.State);
             return View(await users.ToListAsync());
         }
 
@@ -119,24 +119,6 @@ namespace _02CapsulaMvc.Net.Controllers
             return View(user);
         }
 
-        //// GET: Users/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var user = await _context.Users
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(user);
-        //}
-
         // POST: Users/Delete/5
         [HttpPost]
         public async Task<ActionResult> Delete(int id)
@@ -156,22 +138,6 @@ namespace _02CapsulaMvc.Net.Controllers
         {
             return _context.Users.Any(e => e.Id == id);
         }
-
-        //[HttpGet]
-        //public JsonResult States(int id)
-        //{
-        //    List<SelectListItem> PList = new List<SelectListItem>();
-        //    var c = _context.Countries.FirstOrDefaultAsync(c => c.Name == country);
-        //    var states = _context.States.Where(p => p.CountryId == c.Id);
-
-        //    PList = states.Select(i => new SelectListItem()
-        //    {
-        //        Text = i.Name,
-        //        Value = i.Id.ToString()
-        //    }).ToList();
-
-        //    return Json(PList, new Newtonsoft.Json.JsonSerializerSettings());
-        //}
 
         [HttpGet]
         public JsonResult States(int id)
