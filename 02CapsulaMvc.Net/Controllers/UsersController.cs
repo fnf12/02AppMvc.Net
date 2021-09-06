@@ -81,6 +81,7 @@ namespace _02CapsulaMvc.Net.Controllers
             {
                 return NotFound();
             }
+            ViewData["IdCountry"] = new SelectList(_context.Countries, "Id", "Name", user.CountryId);
             return View(user);
         }
 
